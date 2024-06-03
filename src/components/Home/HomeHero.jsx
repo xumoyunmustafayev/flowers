@@ -21,7 +21,7 @@ const HomeHero = () => {
   };
 
   return (
-    <div className="bg-[#fafafa] mt-5 px-7 relative overflow-hidden">
+    <div className="bg-[#fafafa] mt-28 px-7 relative overflow-hidden ">
       <div className="relative">
         <div
           className="flex transition-transform duration-1000 ease-in-out"

@@ -1,17 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const PaginationSlice = createSlice({
-  name: 'pagination',
-  initialState:{
-    id:1,
-    pagination:true,
+  name: "pagination",
+  initialState: {
+    text: 1,
+    pagination: true,
   },
   reducers: {
     TogglePagination: (state) => {
-      state.pagination = !state.pagination
+      state.pagination = !state.pagination;
+    },
+    SetText: (state, action) => {
+      state.text = action.payload;
+    },
+  },
+});
 
-    }
-  }
-})
-
-export default PaginationSlice
+export const { TogglePagination, SetText } = PaginationSlice.actions;
+export default PaginationSlice.reducer;
