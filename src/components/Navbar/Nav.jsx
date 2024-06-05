@@ -26,7 +26,7 @@ const Nav = () => {
 
   return (
     <div>
-      <div className="fixed z-10 bg-white block w-[1200px] top-0">
+      <div className="fixed z-10 bg-white block w-[79%] top-0">
         <nav className="flex items-center justify-between">
           <Link to="/">
             <img src={Logo} alt="Logo img" className="py-6" />
@@ -67,10 +67,12 @@ const Nav = () => {
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              <div className="gap-4 px-2 rounded-lg flex items-center py-1 bg-[#1aad51]">
-                <p className="font-medium text-white">User</p>
-                <UserButton />
-              </div>
+              <Link to="/login">
+                <div className="gap-4 px-2 rounded-lg flex items-center py-1 bg-[#1aad51]">
+                  <p className="font-medium text-white">User</p>
+                  <UserButton />
+                </div>
+              </Link>
             </SignedIn>
           </div>
         </nav>

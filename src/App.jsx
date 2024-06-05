@@ -11,6 +11,7 @@ import Blogs from "./Pages/Blogs";
 import { Provider, useSelector } from "react-redux";
 import { store } from "./redux/store";
 import Search from "./modal/Search";
+import Login from "./components/Login/Login";
 export const AboutContext = createContext();
 export const ProductContext = createContext();
 
@@ -34,6 +35,7 @@ const App = () => {
                 <Route path="/blogs" element={<Blogs />} />
                 <Route path="/shop/card" element={<ShoppingCard />} />
                 <Route path="/shop/checkout" element={<Checkout />} />
+                <Route path="/login" element={<Login />} />
               </Routes>
               <Footer />
             </Router>

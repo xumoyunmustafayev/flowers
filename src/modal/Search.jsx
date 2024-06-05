@@ -13,7 +13,7 @@ const Search = () => {
   const [clickedItems, setClickedItems] = useState([]);
   const dispatch = useDispatch();
   const { product, setProduct } = useContext(ProductContext);
-  const { about, setAbout } = useContext(AboutContext);
+  const { setAbout } = useContext(AboutContext);
 
   const handleInputChange = (event) => {
     const query = event.target.value;

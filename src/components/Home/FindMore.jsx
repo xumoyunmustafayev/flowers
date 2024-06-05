@@ -1,12 +1,12 @@
 import { Data } from "../../data.js/data";
 
 const PlantCard = ({ img, title, description }) => (
-  <div className="flex w-full  shadow-xl relative mx-4  bg-[#efefef] rounded-lg">
-    <div className="relative w-[40%] rounded-lg">
+  <div className="flex w-full shadow-xl relative bg-[#efefef] rounded-lg overflow-hidden hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+    <div className="relative w-[40%] rounded-l-lg">
       <img
         src={img}
         alt="plant img"
-        className="h-full w-full object-cover bg-transparent "
+        className="h-full w-full object-cover bg-transparent"
       />
     </div>
     <div className="w-1/2 p-6 flex flex-col justify-center">
@@ -16,7 +16,7 @@ const PlantCard = ({ img, title, description }) => (
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos doloremque
       </p>
       <div className="flex justify-end">
-        <button className="bg-green-500 text-white py-2 px-4 rounded mt-2">
+        <button className="bg-green-500 text-white py-2 px-4 rounded mt-2 hover:bg-green-600">
           Find More →
         </button>
       </div>

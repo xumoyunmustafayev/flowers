@@ -4,8 +4,7 @@ import Banner from "../../../public/assets/banner.png";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { SlBasket } from "react-icons/sl";
-import { IoSearch } from "react-icons/io5";
-import { IoChevronBackOutline } from "react-icons/io5";
+import { IoSearch, IoChevronBackOutline } from "react-icons/io5";
 import { GrFormNext } from "react-icons/gr";
 import { FaRegHeart } from "react-icons/fa";
 import { AboutContext, ProductContext } from "../../App";
@@ -21,6 +20,7 @@ const FlowersOption = () => {
   const [sale1, setSale1] = useState(1);
   const [colorStates, setColorStates] = useState({});
   const [likeStates, setLikeStates] = useState({});
+  const [sortType, setSortType] = useState("default");
   const { about, setAbout } = useContext(AboutContext);
   const { product, setProduct } = useContext(ProductContext);
 
@@ -54,6 +54,22 @@ const FlowersOption = () => {
 
   const filteredData = useMemo(() => getFilteredData(), [sale, sale1, Data]);
 
+  const sortedData = useMemo(() => {
+    const data = [...filteredData];
+    switch (sortType) {
+      case "lowPrice":
+        return data.sort((a, b) => a.price - b.price);
+      case "highPrice":
+        return data.sort((a, b) => b.price - a.price);
+      case "middlePrice":
+        return data.sort(
+          (a, b) => Math.abs(a.price - 100) - Math.abs(b.price - 100)
+        );
+      default:
+        return data;
+    }
+  }, [sortType, filteredData]);
+
   const totalPages = Math.ceil(
     sale === 1
       ? Data.length / itemsPerPage
@@ -65,7 +81,9 @@ const FlowersOption = () => {
   );
 
   const handleBasketClick = (itemId) => {
-    if(!product.includes(itemId)) {setProduct([...product, itemId])}
+    if (!product.includes(itemId)) {
+      setProduct([...product, itemId]);
+    }
     setColorStates((prev) => ({
       ...prev,
       [itemId]: true,
@@ -85,7 +103,7 @@ const FlowersOption = () => {
         <div className="bg-[--bg] pl-[18px] pb-[18px] pt-[14px] pr-[24px] w-[100%]">
           <div className="mb-[30px]">
             <p className="text-[20px] font-bold mb-[20px]">Categories</p>
-            <ul className="pl-[12px] flex flex-col gap-[20px] tex-[--second]">
+            <ul className="pl-[12px] flex flex-col gap-[20px] text-[--second]">
               {[
                 "House Plants",
                 "Potter Plants",
@@ -112,7 +130,7 @@ const FlowersOption = () => {
             <p className="text-[20px] font-bold mb-[20px]">Price Range</p>
             <div className="flex pl-[12px] gap-4 flex-col mb-[30px] w-[80%]">
               <p className="text-[18px]">
-                Price: <span className="text-[--primary] ">$39 - $1230</span>
+                Price: <span className="text-[--primary]">$39 - $1230</span>
               </p>
               <Box sx={{ width: 300 }}>
                 <Slider
@@ -124,7 +142,7 @@ const FlowersOption = () => {
                 />
               </Box>
               <p>
-                <span className="bg-[--primary] rounded-md text-white text-[18px] py-2 px-7 hover:opacity-70">
+                <span className="bg-[--primary] rounded-md text-white text-[18px] py-2 px-7 hover:opacity-70 cursor-pointer">
                   Filter
                 </span>
               </p>
@@ -133,7 +151,7 @@ const FlowersOption = () => {
 
           <div>
             <p className="text-[20px] font-bold mb-[20px]">Size</p>
-            <ul className="pl-[12px] flex flex-col gap-[20px] tex-[--second]">
+            <ul className="pl-[12px] flex flex-col gap-[20px] text-[--second]">
               {["Small", "Medium", "Large"].map((size, index) => (
                 <li
                   key={index}
@@ -146,30 +164,45 @@ const FlowersOption = () => {
             </ul>
           </div>
         </div>
-        <img src={Banner} alt="img" />
+        <img src={Banner} alt="Banner" />
         <div className="discount w-full max-h-[470px] h-full"></div>
       </div>
       <div className="w-[70%]">
-        <ul className="flex gap-10 cursor-pointer mb-10">
-          {["All plants", "New Arrivals", "Sale"].map((tab, index) => (
-            <li
-              key={index}
-              onClick={() => {
-                setSale(index + 1);
-                setSale1(1);
-              }}
-              className={
-                sale === index + 1
-                  ? "text-green-600 font-medium border-b-4 pb-1 border-green-500 duration-500"
-                  : ""
-              }
+        <div className="flex justify-between items-center mb-10">
+          <ul className="flex gap-10 cursor-pointer">
+            {["All plants", "New Arrivals", "Sale"].map((tab, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  setSale(index + 1);
+                  setSale1(1);
+                }}
+                className={
+                  sale === index + 1
+                    ? "text-green-600 font-medium border-b-4 pb-1 border-green-500 duration-500"
+                    : ""
+                }
+              >
+                {tab}
+              </li>
+            ))}
+          </ul>
+          <div className="flex items-center gap-2">
+            <p className="text-[#3D3D3D]">Sort by:</p>
+            <select
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+              className="border border-gray-300 rounded px-2 py-1"
             >
-              {tab}
-            </li>
-          ))}
-        </ul>
+              <option value="default">Default sorting</option>
+              <option value="lowPrice">Low price</option>
+              <option value="highPrice">High price</option>
+              <option value="middlePrice">Middle price</option>
+            </select>
+          </div>
+        </div>
         <div className="grid grid-cols-3 gap-10 mt-2">
-          {filteredData.map((item) => (
+          {sortedData.map((item) => (
             <div
               key={item.id}
               className="mb-12 cursor-pointer group relative duration-700 hover:shadow-lg hover:scale-105 transform transition-all"
@@ -179,7 +212,7 @@ const FlowersOption = () => {
                   onClick={() => setAbout([item.id])}
                   src={item.image_url}
                   alt="Flower"
-                  className=" h-56 mb-5 hover:opacity-75 w-full"
+                  className="h-56 mb-5 hover:opacity-75 w-full"
                 />
               </Link>
               <div className="flex gap-3 absolute ml-[30%] justify-center z-[-1] group-hover:z-10 duration-200 group-hover:translate-y-[-50px]">
@@ -199,7 +232,7 @@ const FlowersOption = () => {
                 />
                 <IoSearch className="w-5 h-5" />
               </div>
-              <div className="bg-white">
+              <div className="bg-white p-2">
                 <p>{item.common_name}</p>
                 <h1 className="text-green-500 font-medium text-xl">
                   ${item.price}.00

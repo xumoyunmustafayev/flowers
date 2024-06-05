@@ -73,7 +73,7 @@ const TrakModal = ({ setHeddin }) => {
               total={total}
             />
             <div className="flex flex-col justify-center items-center px-5">
-              <p className="text-[#727272] py-2 text-center">
+              <p className="text-[#727272] my-4 text-center">
                 Your order is currently being processed. You will receive an
                 order confirmation email shortly with the expected delivery date
                 for your items.
