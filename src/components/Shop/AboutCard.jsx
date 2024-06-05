@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AboutContext } from "../../App";
+import { AboutContext, ProductContext } from "../../App";
 import { Data } from "../../data.js/data";
 import { FaStar } from "react-icons/fa";
 import { CiStar, CiHeart } from "react-icons/ci";
@@ -8,7 +8,8 @@ import { LuMessageSquare } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 const AboutCard = () => {
-  const { about } = useContext(AboutContext);
+  const { about, setAbout } = useContext(AboutContext);
+  const { product, setProduct } = useContext(ProductContext);
   const NotFound =
     "https://answers-afd.microsoft.com/static/images/image-not-found.jpg";
   const [quantity, setQuantity] = useState(1);
@@ -33,6 +34,14 @@ const AboutCard = () => {
 
   return (
     <div className="mt-28 mb-11">
+      <div className="flex mb-6 gap-2">
+        <Link to="/">
+          <h1 className="font-medium">Home / </h1>
+        </Link>
+        <Link to="/shop">
+          <h1> Shop </h1>
+        </Link>
+      </div>
       {about && about.length > 0 ? (
         Data.map((item) => {
           if (item.id == about[0]) {
@@ -105,12 +114,26 @@ const AboutCard = () => {
                         +
                       </button>
                       <Link to="/shop/card">
-                        <button className="px-5 py-2 bg-green-600 text-white rounded-lg">
+                        <button
+                          className="px-5 py-2 bg-green-600 text-white rounded-lg"
+                          onClick={() => {
+                            if (!product.includes(item.id)) {
+                              setProduct([...product, item.id]);
+                            }
+                          }}
+                        >
                           Buy now
                         </button>
                       </Link>
-                      <button className="px-5 py-2 border-green-500 rounded-lg border">
-                        Add to cart{" "}
+                      <button
+                        className="px-5 py-2 border-green-500 rounded-lg border"
+                        onClick={() => {
+                          if (!product.includes(item.id)) {
+                            setProduct([...product, item.id]);
+                          }
+                        }}
+                      >
+                        Add to cart
                       </button>
                       <p className="p-3 rounded-full border border-green-600">
                         <CiHeart className="text-green-600" />

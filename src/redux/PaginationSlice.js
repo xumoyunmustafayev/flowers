@@ -3,12 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const PaginationSlice = createSlice({
   name: "pagination",
   initialState: {
-    text: 1,
-    pagination: true,
+    modal: false,
   },
   reducers: {
-    TogglePagination: (state) => {
-      state.pagination = !state.pagination;
+    ToggleModal: (state) => {
+      state.modal = !state.modal;
     },
     SetText: (state, action) => {
       state.text = action.payload;
@@ -16,5 +15,5 @@ const PaginationSlice = createSlice({
   },
 });
 
-export const { TogglePagination, SetText } = PaginationSlice.actions;
+export const { ToggleModal, SetText } = PaginationSlice.actions;
 export default PaginationSlice.reducer;
