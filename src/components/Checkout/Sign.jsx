@@ -1,168 +1,237 @@
-import Group1 from "../../../public/assets/g1.png";
-import Group2 from "../../../public/assets/g2.png";
-import Group3 from "../../../public/assets/g3.png";
-import Logo from "../../../public/assets/LogoGreen.svg";
-import { IoLocationOutline } from "react-icons/io5";
-import { TiContacts } from "react-icons/ti";
-import { FaPhoneVolume } from "react-icons/fa6";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
-import Pay from "../../../public/assets/pay.png";
+import { useLocation } from "react-router-dom";
 
-const Footer = () => {
+const Sign = ({ setHeddin }) => {
+  const location = useLocation();
+  const { selectedProducts } = location.state || { selectedProducts: [] };
+
+  const calculateSubtotal = () => {
+    if (!selectedProducts || selectedProducts.length === 0) {
+      return 0;
+    }
+
+    let subtotal = 0;
+    selectedProducts.forEach((item) => {
+      subtotal += item.price * item.quantity;
+    });
+
+    return subtotal.toFixed(2);
+  };
+
+  const shippingCost = 16;
+  const subtotal = calculateSubtotal();
+  const total = (parseFloat(subtotal) + shippingCost).toFixed(2);
+
   return (
-    <div className="mt-24">
-      <div className="grid gap-4 lg:grid-cols-4 bg-[#FBFBFB] p-7 border-r-2 cursor-pointer">
-        <div className="p-7 flex items-center border-r-2">
-          <img src={Group1} alt="img" className="w-40 h-52 object-contain" />
-        </div>
-        <div className="p-7 flex items-center border-r-2">
-          <img src={Group2} alt="img" className="w-40 h-52 object-contain" />
-        </div>
-        <div className="p-7 flex items-center">
-          <img src={Group3} alt="img" className="w-40 h-52 object-contain" />
-        </div>
-        <div className="flex flex-col justify-center p-7">
-          <h1 className="text-xl font-bold mb-4">
-            Would you like to join newsletters?
-          </h1>
-          <div className="flex items-center mb-4">
-            <input
-              type="text"
-              placeholder="enter your email address..."
-              className="flex-1 p-2 border border-gray-300 rounded-l-md outline-none"
-            />
-            <button className="h-full bg-green-700 text-white py-2 px-4 rounded-r-md hover:bg-green-800 transition-colors duration-300">
-              Join
-            </button>
-          </div>
-          <p className="text-[#727272]">
-            We usually post offers and challenges in newsletters. We’re your
-            online houseplant destination. We offer a wide range of houseplants
-            and accessories shipped directly from our (green)house to yours!
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-col lg:flex-row p-7 bg-[#46A3581A] gap-16 cursor-pointer">
-        <img src={Logo} alt="img" />
-        <div className="flex flex-col gap-3 items-start">
-          <div className="flex items-center gap-3">
-            <IoLocationOutline className="w-6 h-6 text-green-500" />
-            <a
-              href="https://www.google.com/maps/place/Rayhon+National+Meals+Restaurant/@41.2831386,69.2043005,15z/data=!4m6!3m5!1s0x38ae8a31ca66d417:0x5755ff29b7bf33a!8m2!3d41.2858377!4d69.2056945!16s%2Fg%2F11gd21npmv?entry=ttu"
-              target="blank"
-              className="text-[#3D3D3D] opacity-80"
-            >
-              <p>
-                70 West Buckingham Ave. <br /> Farmingdale, NY 11735
-              </p>
-            </a>
-          </div>
-          <div className="flex items-center gap-3">
-            <TiContacts className="w-6 h-6 text-green-500" />
-            <p>
-              <a
-                href="https://mail.google.com/mail/u/0/#inbox"
-                target="blank"
-                className="text-[#3D3D3D] opacity-80"
+    <div className="container mx-auto py-6 bg-gray-100">
+      <div className="flex flex-col lg:flex-row justify-between">
+        <div className="w-full lg:w-[65%] p-4 bg-white shadow-md rounded-md mb-6 lg:mb-0">
+          <h2 className="text-xl font-semibold mb-4">Billing Address</h2>
+          <form>
+            <div className="flex justify-between">
+              <div className="mb-4 w-[46%]">
+                <label className="block text-gray-700">First Name *</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+              <div className="mb-4 w-[46%]">
+                <label className="block text-gray-700">Last Name *</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">
+                  Country / Region *
+                </label>
+                <select
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                >
+                  <option value="">Select a country / region</option>
+                </select>
+              </div>
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">Town / City *</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Street Address *</label>
+              <div className="flex justify-between">
+                <input
+                  type="text"
+                  className=" p-2 border border-gray-300 rounded mt-1 w-[47%]"
+                  placeholder="House number and street name"
+                  required
+                />
+                <input
+                  type="text"
+                  className=" p-2 border border-gray-300 rounded mt-1 w-[47%]"
+                  placeholder="Apartment, suite, unit, etc. (optional)"
+                />
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">State *</label>
+                <select
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                >
+                  <option value="">Select a state</option>
+                </select>
+              </div>
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">Zip *</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">Email Address *</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+              <div className="mb-4 w-[47%]">
+                <label className="block text-gray-700">Phone Number *</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border border-gray-300 rounded mt-1"
+                  required
+                />
+              </div>
+            </div>
+            <div className="mb-4">
+              <input
+                type="checkbox"
+                id="ship-to-different-address"
+                className="mr-2"
+              />
+              <label
+                htmlFor="ship-to-different-address"
+                className="text-gray-700"
               >
-                contact@greenshop.com
-              </a>
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <FaPhoneVolume className="w-5 h-5 text-green-500" />
-            <p className="text-[#3D3D3D] opacity-80">+88 01911 717 490</p>
-          </div>
+                Ship to a different address?
+              </label>
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">
+                Order Notes (optional)
+              </label>
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded mt-1"
+                placeholder="Notes about your order, e.g. special notes for delivery."
+              ></textarea>
+            </div>
+          </form>
         </div>
-        <div></div>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-16 p-7 cursor-pointer">
-        <div>
-          <ul>
-            <li className="text-xl font-semibold mb-3 text-black">
-              My Account
-            </li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li className="text-xl font-semibold mb-3 text-black">
-              My Account
-            </li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li className="text-xl font-semibold mb-3 text-black">
-              My Account
-            </li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
-          </ul>
-        </div>
-        <div>
-          <ul>
-            <li className="text-xl font-semibold mb-5 text-black">
-              Social Media
-            </li>
-            <div className="flex gap-2">
-              <p className="border p-2 rounded-md border-[#              46A35833] hover:bg-[#46A35833] transition-colors duration-300">
-                <a href="https://www.facebook.com/" target="blank">
-                  <FaFacebookF className="text-[#46A35899] hover:text-green-700 transition-colors duration-300" />
-                </a>
+        <div className="w-full lg:w-[33%] p-4 bg-white shadow-md rounded-md">
+          <h2 className="text-xl font-semibold mb-4">Your Order</h2>
+          {selectedProducts.map((item) => (
+            <div
+              key={item.id}
+              className="h-[70px] flex items-center bg-[#FBFBFB] mb-[10px]"
+            >
+              <img
+                src={item.image_url}
+                alt="rasm"
+                className="h-full w-[70px]"
+              />
+              <div className="ml-[11px]  w-[140px]">
+                <p className="text-[#3D3D3D] text-[16px] mb-[0px] font-medium">
+                  {item.common_name}
+                </p>
+                <p className="text-[14px] text-[#949494] font-normal">
+                  SKU:{" "}
+                  <span className="text-[#727272] text-[14px]">{item.id}</span>
+                </p>
+              </div>
+              <p className="text-[#727272] ml-[30px] text-[16px] w-[42px]">
+                (x {item.quantity})
               </p>
-              <p className="border p-2 rounded-md border-[#46A35833] hover:bg-[#46A35833] transition-colors duration-300">
-                <a href="https://www.instagram.com/">
-                  <FaInstagram className="text-[#46A35899] hover:text-green-700 transition-colors duration-300" />
-                </a>
-              </p>
-              <p className="border p-2 rounded-md border-[#46A35833] hover:bg-[#46A35833] transition-colors duration-300">
-                <a href="https://x.com/">
-                  <FaTwitter className="text-[#46A35899] hover:text-green-700 transition-colors duration-300" />
-                </a>
-              </p>
-              <p className="border p-2 rounded-md border-[#46A35833] hover:bg-[#46A35833] transition-colors duration-300">
-                <a href="https://www.linkedin.com/">
-                  <FaLinkedinIn className="text-[#46A35899] hover:text-green-700 transition-colors duration-300" />
-                </a>
-              </p>
-              <p className="border p-2 rounded-md border-[#46A35833] hover:bg-[#46A35833] transition-colors duration-300">
-                <a href="https://www.youtube.com/">
-                  <FaYoutube className="text-[#46A35899] hover:text-green-700 transition-colors duration-300" />
-                </a>
+              <p className="text-[#46A358] font-bold text-[18px] ml-[35px] w-[70px]">
+                ${item.price * item.quantity}.00
               </p>
             </div>
-            <li className="text-xl font-semibold my-5 text-black">We accept</li>
-            <img src={Pay} alt="img" />
-          </ul>
+          ))}
+
+          <div className="flex justify-between py-2">
+            <div>Subtotal</div>
+            <div>${subtotal}</div>
+          </div>
+          <div className="flex justify-between py-2">
+            <div>Shipping</div>
+            <div>${shippingCost}.00</div>
+          </div>
+          <div className="flex justify-between font-semibold py-2">
+            <div>Total</div>
+            <p>${total}</p>
+          </div>
+          <div className="payment-method mt-4">
+            <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+            <div className="mb-2">
+              <input
+                type="radio"
+                id="paypal"
+                name="payment-method"
+                className="mr-2"
+              />
+              <label htmlFor="paypal" className="text-gray-700">
+                PayPal
+              </label>
+            </div>
+            <div className="mb-2">
+              <input
+                type="radio"
+                id="direct-bank-transfer"
+                name="payment-method"
+                className="mr-2"
+              />
+              <label htmlFor="direct-bank-transfer" className="text-gray-700">
+                Direct Bank Transfer
+              </label>
+            </div>
+            <div className="mb-2">
+              <input
+                type="radio"
+                id="cash-on-delivery"
+                name="payment-method"
+                className="mr-2"
+              />
+              <label htmlFor="cash-on-delivery" className="text-gray-700">
+                Cash on Delivery
+              </label>
+            </div>
+          </div>
+          <button
+            onClick={() => setHeddin(true)}
+            type="submit"
+            className="w-full mt-4 p-2 bg-green-500 text-white font-semibold rounded"
+          >
+            Place Order
+          </button>
         </div>
       </div>
-      <hr />
-      <h1 className="text-[#3D3D3D] my-2 text-center">
-        © 2021 GreenShop. All Rights Reserved.
-      </h1>
     </div>
   );
 };
 
-export default Footer;
-
+export default Sign;
