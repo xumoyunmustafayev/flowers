@@ -17,7 +17,7 @@ import Pay from "../../../public/assets/pay.png";
 const Footer = () => {
   return (
     <div className="mt-24">
-      <div className="flex gap-4 bg-[#FBFBFB] p-7 border-r-2 cursor-pointer">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 bg-[#FBFBFB] p-7 border-r-2 cursor-pointer">
         <div className="p-7 flex items-center border-r-2">
           <img src={Group1} alt="img" className="w-40 h-52 object-contain" />
         </div>
@@ -48,34 +48,35 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <div className="flex p-7 bg-[#46A3581A] gap-16 cursor-pointer">
+      <div className="flex flex-col lg:flex-row p-7 bg-[#46A3581A] gap-16 cursor-pointer">
         <img src={Logo} alt="img" />
-        <div className="flex gap-3 items-center">
-          <IoLocationOutline className="w-6 h-6 text-green-500" />
-          <a
-            href="https://www.google.com/maps/place/Rayhon+National+Meals+Restaurant/@41.2831386,69.2043005,15z/data=!4m6!3m5!1s0x38ae8a31ca66d417:0x5755ff29b7bf33a!8m2!3d41.2858377!4d69.2056945!16s%2Fg%2F11gd21npmv?entry=ttu"
-            target="blank"
-          >
-            <p>
-              70 West Buckingham Ave. <br /> Farmingdale, NY 11735
-            </p>
-          </a>
-        </div>
-        <div className="flex gap-3 items-center">
-          <TiContacts className="w-6 h-6 text-green-500" />
-          <p>
-            <a href="https://mail.google.com/mail/u/0/#inbox" target="blank">
-              contact@greenshop.com
+        <div className="flex flex-col md:flex-row gap-3 items-center">
+          <div className="flex items-center">
+            <IoLocationOutline className="w-6 h-6 text-green-500" />
+            <a
+              href="https://www.google.com/maps/place/Rayhon+National+Meals+Restaurant/@41.2831386,69.2043005,15z/data=!4m6!3m5!1s0x38ae8a31ca66d417:0x5755ff29b7bf33a!8m2!3d41.2858377!4d69.2056945!16s%2Fg%2F11gd21npmv?entry=ttu"
+              target="blank"
+            >
+              <p>
+                70 West Buckingham Ave. <br /> Farmingdale, NY 11735
+              </p>
             </a>
-          </p>
+          </div>
+          <div className="flex items-center">
+            <TiContacts className="w-6 h-6 text-green-500" />
+            <p>
+              <a href="https://mail.google.com/mail/u/0/#inbox" target="blank">
+                contact@greenshop.com
+              </a>
+            </p>
+          </div>
+          <div className="flex items-center">
+            <FaPhoneVolume className="w-5 h-5 text-green-500" />
+            <p>+88 01911 717 490</p>
+          </div>
         </div>
-        <div className="flex gap-3 items-center">
-          <FaPhoneVolume className="w-5 h-5 text-green-500" />
-          <p>+88 01911 717 490</p>
-        </div>
-        <div></div>
       </div>
-      <div className="flex justify-between cursor-pointer">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 cursor-pointer">
         <div className="p-7">
           <ul>
             <li className="text-xl font-semibold mb-3 text-black">
@@ -83,33 +84,24 @@ const Footer = () => {
             </li>
             <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
             <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
           </ul>
         </div>
         <div className="p-7">
           <ul>
             <li className="text-xl font-semibold mb-3 text-black">
-              My Account
+              Information
             </li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
+            <li className="text-[#3D3D3D] opacity-80 mb-1">About Us</li>
+            <li className="text-[#3D3D3D] opacity-80 mb-1">
+              Delivery Information
+            </li>
           </ul>
         </div>
         <div className="p-7">
           <ul>
-            <li className="text-xl font-semibold mb-3 text-black">
-              My Account
-            </li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">My Account</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact us</li>
-            <li className="text-[#3D3D3D] opacity-80 mb-1">Contact</li>
+            <li className="text-xl font-semibold mb-3 text-black">Extras</li>
             <li className="text-[#3D3D3D] opacity-80 mb-1">Specials</li>
+            <li className="text-[#3D3D3D] opacity-80 mb-1">Gift Vouchers</li>
           </ul>
         </div>
         <div className="p-7 cursor-pointer">

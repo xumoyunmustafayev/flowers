@@ -31,31 +31,37 @@ const HomeHero = () => {
           }}
         >
           {[...Array(slideCount)].map((_, index) => (
-            <div key={index} className="flex w-full">
-              <div className="p-10 w-[60%]">
-                <h1 className="opacity-85 font-medium">Welcome to GreenShop</h1>
-                <h1 className="text-[70px] font-extrabold">
+            <div key={index} className="flex flex-col lg:flex-row w-full">
+              <div className="p-10 w-full lg:w-[60%] text-center lg:text-left">
+                <h1 className="opacity-85 font-medium text-xl lg:text-2xl">
+                  Welcome to GreenShop
+                </h1>
+                <h1 className="text-4xl lg:text-6xl font-extrabold mt-4 lg:mt-6">
                   Let's Make A Better{" "}
                   <span className="text-[#46A358]">Planet</span>
                 </h1>
-                <p className="opacity-65">
+                <p className="opacity-65 mt-4 lg:mt-6 text-base lg:text-lg">
                   We are an online plant shop offering a wide range of cheap and
-                  <br />
+                  <br className="hidden lg:block" />
                   trendy plants. Use our plants to create a unique Urban Jungle.
-                  <br />
+                  <br className="hidden lg:block" />
                   Order your favorite plants!
                 </p>
                 <button className="px-7 py-2 bg-[#46A358] rounded-lg font-medium mt-4 text-white">
                   SHOP NOW
                 </button>
               </div>
-              <div className="flex items-end w-[40%] relative">
+              <div className="flex items-end justify-center w-full lg:w-[40%] mt-8 lg:mt-0">
                 <img
                   src={Better}
                   alt="Decorative plant"
-                  className="w-28 h-28 absolute bottom-8"
+                  className="w-28 h-28 lg:w-auto lg:h-auto lg:absolute lg:bottom-8 lg:left-auto lg:ml-auto"
                 />
-                <img src={Better} alt="Decorative plant" className="ml-auto" />
+                <img
+                  src={Better}
+                  alt="Decorative plant"
+                  className="ml-auto hidden lg:block"
+                />
               </div>
             </div>
           ))}

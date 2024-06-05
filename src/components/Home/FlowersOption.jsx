@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import { Data } from "../../data.js/data";
 import Banner from "../../../public/assets/banner.png";
 import Box from "@mui/material/Box";
@@ -21,7 +21,7 @@ const FlowersOption = () => {
   const [colorStates, setColorStates] = useState({});
   const [likeStates, setLikeStates] = useState({});
   const [sortType, setSortType] = useState("default");
-  const { about, setAbout } = useContext(AboutContext);
+  const { setAbout } = useContext(AboutContext);
   const { product, setProduct } = useContext(ProductContext);
 
   const handleChange = (event, newValue) => {
@@ -52,7 +52,7 @@ const FlowersOption = () => {
     return filteredData.slice(startIndex, endIndex);
   };
 
-  const filteredData = useMemo(() => getFilteredData(), [sale, sale1, Data]);
+  const filteredData = useMemo(() => getFilteredData(), [sale, sale1]);
 
   const sortedData = useMemo(() => {
     const data = [...filteredData];
@@ -98,12 +98,12 @@ const FlowersOption = () => {
   };
 
   return (
-    <div className="flex justify-between mt-10">
-      <div className="w-[30%]">
-        <div className="bg-[--bg] pl-[18px] pb-[18px] pt-[14px] pr-[24px] w-[100%]">
-          <div className="mb-[30px]">
-            <p className="text-[20px] font-bold mb-[20px]">Categories</p>
-            <ul className="pl-[12px] flex flex-col gap-[20px] text-[--second]">
+    <div className="mt-10 flex flex-col lg:flex-row justify-between gap-5">
+      <div className="lg:w-1/4 mb-8 lg:mb-0">
+        <div className="bg-gray-100 p-6">
+          <div className="mb-8">
+            <p className="text-2xl font-bold mb-5">Categories</p>
+            <ul className="flex flex-col gap-5 text-gray-700">
               {[
                 "House Plants",
                 "Potter Plants",
@@ -117,7 +117,7 @@ const FlowersOption = () => {
               ].map((category, index) => (
                 <li
                   key={index}
-                  className="flex cursor-pointer justify-between text-[18px] items-center"
+                  className="flex justify-between text-lg items-center cursor-pointer hover:text-green-600"
                 >
                   <span>{category}</span>
                   <span>(33)</span>
@@ -126,13 +126,13 @@ const FlowersOption = () => {
             </ul>
           </div>
 
-          <div>
-            <p className="text-[20px] font-bold mb-[20px]">Price Range</p>
-            <div className="flex pl-[12px] gap-4 flex-col mb-[30px] w-[80%]">
-              <p className="text-[18px]">
-                Price: <span className="text-[--primary]">$39 - $1230</span>
+          <div className="mb-8">
+            <p className="text-2xl font-bold mb-5">Price Range</p>
+            <div className="flex flex-col gap-4 mb-8">
+              <p className="text-lg">
+                Price: <span className="text-green-600">$39 - $1230</span>
               </p>
-              <Box sx={{ width: 300 }}>
+              <Box sx={{ width: "100%" }}>
                 <Slider
                   getAriaLabel={() => "Temperature range"}
                   value={value}
@@ -141,21 +141,19 @@ const FlowersOption = () => {
                   getAriaValueText={valuetext}
                 />
               </Box>
-              <p>
-                <span className="bg-[--primary] rounded-md text-white text-[18px] py-2 px-7 hover:opacity-70 cursor-pointer">
-                  Filter
-                </span>
-              </p>
+              <button className="bg-green-600 text-white text-lg py-2 px-4 rounded-md hover:bg-green-500">
+                Filter
+              </button>
             </div>
           </div>
 
           <div>
-            <p className="text-[20px] font-bold mb-[20px]">Size</p>
-            <ul className="pl-[12px] flex flex-col gap-[20px] text-[--second]">
+            <p className="text-2xl font-bold mb-5">Size</p>
+            <ul className="flex flex-col gap-5 text-gray-700">
               {["Small", "Medium", "Large"].map((size, index) => (
                 <li
                   key={index}
-                  className="flex cursor-pointer justify-between text-[18px] items-center"
+                  className="flex justify-between text-lg items-center cursor-pointer hover:text-green-600"
                 >
                   <span>{size}</span>
                   <span>(33)</span>
@@ -164,12 +162,11 @@ const FlowersOption = () => {
             </ul>
           </div>
         </div>
-        <img src={Banner} alt="Banner" />
-        <div className="discount w-full max-h-[470px] h-full"></div>
+        <img src={Banner} alt="Banner" className="mt-8" />
       </div>
-      <div className="w-[70%]">
-        <div className="flex justify-between items-center mb-10">
-          <ul className="flex gap-10 cursor-pointer">
+      <div className="lg:w-3/4">
+        <div className="flex justify-between items-center mb-8">
+          <ul className="flex gap-6 cursor-pointer">
             {["All plants", "New Arrivals", "Sale"].map((tab, index) => (
               <li
                 key={index}
@@ -188,7 +185,7 @@ const FlowersOption = () => {
             ))}
           </ul>
           <div className="flex items-center gap-2">
-            <p className="text-[#3D3D3D]">Sort by:</p>
+            <p className="text-gray-700">Sort by:</p>
             <select
               value={sortType}
               onChange={(e) => setSortType(e.target.value)}
@@ -201,75 +198,75 @@ const FlowersOption = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-10 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedData.map((item) => (
             <div
               key={item.id}
-              className="mb-12 cursor-pointer group relative duration-700 hover:shadow-lg hover:scale-105 transform transition-all"
+              className="bg-white p-4 rounded-lg shadow-lg group relative transition-transform transform hover:scale-105"
             >
               <Link to="/shop">
                 <img
                   onClick={() => setAbout([item.id])}
                   src={item.image_url}
                   alt="Flower"
-                  className="h-56 mb-5 hover:opacity-75 w-full"
+                  className="h-40 w-full object-cover mb-4 rounded-md hover:opacity-75"
                 />
               </Link>
-              <div className="flex gap-3 absolute ml-[30%] justify-center z-[-1] group-hover:z-10 duration-200 group-hover:translate-y-[-50px]">
+              <div className="flex justify-center gap-3 absolute bottom-20 w-full opacity-0 group-hover:opacity-100 transition-opacity">
                 <SlBasket
                   aria-label="Add to Basket"
-                  className={
-                    colorStates[item.id] ? "w-5 h-5 text-green-500" : "w-5 h-5"
-                  }
+                  className={`w-5 h-5 ${
+                    colorStates[item.id] ? "text-green-500" : ""
+                  }`}
                   onClick={() => handleBasketClick(item.id)}
                 />
                 <FaRegHeart
                   aria-label="Like"
-                  className={
-                    likeStates[item.id] ? "w-5 h-5 text-green-500" : "w-5 h-5"
-                  }
+                  className={`w-5 h-5 ${
+                    likeStates[item.id] ? "text-green-500" : ""
+                  }`}
                   onClick={() => handleLikeClick(item.id)}
                 />
                 <IoSearch className="w-5 h-5" />
               </div>
-              <div className="bg-white p-2">
-                <p>{item.common_name}</p>
-                <h1 className="text-green-500 font-medium text-xl">
+              <div className="text-center">
+                <p className="text-lg">{item.common_name}</p>
+                <h1 className="text-green-600 font-medium text-xl">
                   ${item.price}.00
                 </h1>
               </div>
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-end gap-3 cursor-pointer">
+        <div className="flex justify-center mt-8 gap-3">
           {sale1 > 1 && (
-            <p
-              className="px-4 py-4 border rounded-md hover:bg-green-500 hover:text-white"
+            <button
+              className="px-4 py-2 border rounded-md hover:bg-green-500 hover:text-white"
               onClick={() => setSale1(sale1 - 1)}
             >
               <IoChevronBackOutline />
-            </p>
+            </button>
           )}
           {[...Array(totalPages)].map((_, index) => (
-            <p
+            <button
               key={index}
               onClick={() => setSale1(index + 1)}
-              className={
+              className={`px-4 py-2 border rounded-md ${
                 sale1 === index + 1
-                  ? "px-4 py-3 border rounded-md bg-green-500 text-white"
-                  : "px-4 py-3 border rounded-md"
-              }
+                  ? "bg-green-500 text-white"
+                  : "hover:bg-green-500 hover:text-white"
+              }`}
             >
               {index + 1}
-            </p>
+            </button>
           ))}
           {sale1 < totalPages && (
-            <p
-              className="px-4 py-4 border rounded-md hover:bg-green-500 hover:text-white"
+            <button
+              className="px-4 py-2 border rounded-md hover:bg-green-500 hover:text-white"
               onClick={() => setSale1(sale1 + 1)}
             >
               <GrFormNext />
-            </p>
+            </button>
           )}
         </div>
       </div>
