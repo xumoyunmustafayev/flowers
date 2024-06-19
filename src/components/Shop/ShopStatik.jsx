@@ -18,18 +18,24 @@ const ShopStatik = () => {
   const handleDotClick = (index) => {
     setCount(index);
   };
+
   const { about, setAbout } = useContext(AboutContext);
 
   const [text, setText] = useState(1);
 
+  const handleItemClick = (item) => {
+    setAbout([item.id]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="mt-28">
       <div>
-        <div className="flex gap-8 ">
+        <div className="flex gap-8">
           <h1
             onClick={() => setText(1)}
             className={
-              text == 1
+              text === 1
                 ? "text-lg font-medium text-green-500 border-b-4 border-green-500 pb-2 duration-500 cursor-pointer"
                 : "text-lg font-medium pb-2 duration-500 cursor-pointer"
             }
@@ -39,7 +45,7 @@ const ShopStatik = () => {
           <h1
             onClick={() => setText(2)}
             className={
-              text == 2
+              text === 2
                 ? "text-lg font-medium text-green-500 border-b-4 border-green-500 pb-2 duration-500 cursor-pointer"
                 : "text-lg font-medium pb-2 duration-500 cursor-pointer"
             }
@@ -48,7 +54,7 @@ const ShopStatik = () => {
           </h1>
         </div>
         <hr />
-        {text == 1 ? (
+        {text === 1 ? (
           <div>
             <p className="text-[#727272]">
               The ceramic cylinder planters come with a wooden stand to help
@@ -68,7 +74,7 @@ const ShopStatik = () => {
               metus, consequat et blandit et, luctus a nunc. Etiam gravida
               vehicula tellus, in imperdiet ligula euismod eget. The ceramic
               cylinder planters come with a wooden stand to help elevate your
-              plants off the ground.{" "}
+              plants off the ground.
             </p>
             <h1 className="font-medium text-base mt-3">Living Room:</h1>
             <p className="text-[#727272]">
@@ -135,29 +141,27 @@ const ShopStatik = () => {
           className="mt-28 flex transition-transform duration-1000"
           style={{ transform: `translateX(-${count * 100}%)` }}
         >
-          {Data.slice(0, 15).map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="w-1/5 flex-shrink-0 px-2"
-                onClick={() => setAbout([item.id])}
-              >
-                <div>
-                  <img src={item.image_url} alt="img" className="w-full h-60" />
-                  <p className="text-[#3D3D3D]">{item.common_name}</p>
-                  <p className="text-green-500 font-bold">${item.price}.00</p>
-                </div>
+          {Data.slice(0, 15).map((item) => (
+            <div
+              key={item.id}
+              className="w-1/5 flex-shrink-0 px-2"
+              onClick={() => handleItemClick(item)}
+            >
+              <div className="hover:scale-105 transition-transform">
+                <img src={item.image_url} alt="img" className="w-full h-60" />
+                <p className="text-[#3D3D3D]">{item.common_name}</p>
+                <p className="text-green-500 font-bold">${item.price}.00</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
         <div className="flex justify-center mt-4">
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
               onClick={() => handleDotClick(i)}
-              className={`h-2 w-2 rounded-full mx-1 cursor-pointer ${
-                count === i ? "bg-black" : "bg-gray-300"
+              className={`h-2 w-2 rounded-full mx-1 cursor-pointer transition-all ${
+                count === i ? "bg-black" : "bg-gray-300 hover:bg-black"
               }`}
             />
           ))}

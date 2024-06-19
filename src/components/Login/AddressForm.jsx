@@ -178,7 +178,6 @@ const AddressForm = () => {
                 name="phoneCode"
               >
                 <option value="+966">+966</option>
-                {/* Add more options here */}
               </select>
               <input
                 type="text"

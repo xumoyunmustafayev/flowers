@@ -45,7 +45,7 @@ const Search = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-90 z-40">
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-40 z-40">
       <div className="w-[700px] bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="flex justify-end p-2">
           <IoCloseSharp

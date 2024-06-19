@@ -48,9 +48,9 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row p-7 bg-[#46A3581A] gap-16 cursor-pointer">
+      <div className="flex flex-col lg:flex-row p-7 bg-[#46A3581A] gap-16 cursor-pointer ">
         <img src={Logo} alt="img" />
-        <div className="flex flex-col md:flex-row gap-3 items-center">
+        <div className="flex flex-col md:flex-row gap-3 items-center justify-between w-[70%]">
           <div className="flex items-center">
             <IoLocationOutline className="w-6 h-6 text-green-500" />
             <a

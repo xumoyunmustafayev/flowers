@@ -21,11 +21,16 @@ const FlowersOption = () => {
   const [colorStates, setColorStates] = useState({});
   const [likeStates, setLikeStates] = useState({});
   const [sortType, setSortType] = useState("default");
+  const [priceRange, setPriceRange] = useState([0, 1230]);
   const { setAbout } = useContext(AboutContext);
   const { product, setProduct } = useContext(ProductContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handlePriceChange = (event, newValue) => {
+    setPriceRange(newValue);
   };
 
   const itemsPerPage = 9;
@@ -46,13 +51,12 @@ const FlowersOption = () => {
         filteredData = [];
     }
 
-    const startIndex = (sale1 - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-
-    return filteredData.slice(startIndex, endIndex);
+    return filteredData.filter(
+      (item) => item.price >= priceRange[0] && item.price <= priceRange[1]
+    );
   };
 
-  const filteredData = useMemo(() => getFilteredData(), [sale, sale1]);
+  const filteredData = useMemo(() => getFilteredData(), [sale, priceRange]);
 
   const sortedData = useMemo(() => {
     const data = [...filteredData];
@@ -70,15 +74,13 @@ const FlowersOption = () => {
     }
   }, [sortType, filteredData]);
 
-  const totalPages = Math.ceil(
-    sale === 1
-      ? Data.length / itemsPerPage
-      : sale === 2
-      ? (18 - 9) / itemsPerPage
-      : sale === 3
-      ? (21 - 11) / itemsPerPage
-      : 0
-  );
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+  const paginatedData = useMemo(() => {
+    const startIndex = (sale1 - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return sortedData.slice(startIndex, endIndex);
+  }, [sale1, sortedData]);
 
   const handleBasketClick = (itemId) => {
     if (!product.includes(itemId)) {
@@ -130,15 +132,20 @@ const FlowersOption = () => {
             <p className="text-2xl font-bold mb-5">Price Range</p>
             <div className="flex flex-col gap-4 mb-8">
               <p className="text-lg">
-                Price: <span className="text-green-600">$39 - $1230</span>
+                Price:{" "}
+                <span className="text-green-600">
+                  ${priceRange[0]} - ${priceRange[1]}
+                </span>
               </p>
               <Box sx={{ width: "100%" }}>
                 <Slider
-                  getAriaLabel={() => "Temperature range"}
-                  value={value}
-                  onChange={handleChange}
+                  getAriaLabel={() => "Price range"}
+                  value={priceRange}
+                  onChange={handlePriceChange}
                   valueLabelDisplay="auto"
                   getAriaValueText={valuetext}
+                  min={0}
+                  max={1230}
                 />
               </Box>
               <button className="bg-green-600 text-white text-lg py-2 px-4 rounded-md hover:bg-green-500">
@@ -198,45 +205,47 @@ const FlowersOption = () => {
             </select>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedData.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white p-4 rounded-lg shadow-lg group relative transition-transform transform hover:scale-105"
-            >
-              <Link to="/shop">
-                <img
-                  onClick={() => setAbout([item.id])}
-                  src={item.image_url}
-                  alt="Flower"
-                  className="h-40 w-full object-cover mb-4 rounded-md hover:opacity-75"
-                />
-              </Link>
-              <div className="flex justify-center gap-3 absolute bottom-20 w-full opacity-0 group-hover:opacity-100 transition-opacity">
-                <SlBasket
-                  aria-label="Add to Basket"
-                  className={`w-5 h-5 ${
-                    colorStates[item.id] ? "text-green-500" : ""
-                  }`}
-                  onClick={() => handleBasketClick(item.id)}
-                />
-                <FaRegHeart
-                  aria-label="Like"
-                  className={`w-5 h-5 ${
-                    likeStates[item.id] ? "text-green-500" : ""
-                  }`}
-                  onClick={() => handleLikeClick(item.id)}
-                />
-                <IoSearch className="w-5 h-5" />
+        <div className="min-h-[1200px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+            {paginatedData.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white p-4 mb-12 rounded-lg shadow-lg group relative transition-transform transform hover:scale-105"
+              >
+                <Link to="/shop">
+                  <img
+                    onClick={() => setAbout([item.id])}
+                    src={item.image_url}
+                    alt="Flower"
+                    className="h-40 w-full object-cover mb-4 rounded-md hover:opacity-75"
+                  />
+                </Link>
+                <div className="flex justify-center gap-3 absolute bottom-20 w-full opacity-0 group-hover:opacity-100 transition-opacity">
+                  <SlBasket
+                    aria-label="Add to Basket"
+                    className={`w-5 h-5 ${
+                      colorStates[item.id] ? "text-green-500" : ""
+                    }`}
+                    onClick={() => handleBasketClick(item.id)}
+                  />
+                  <FaRegHeart
+                    aria-label="Like"
+                    className={`w-5 h-5 ${
+                      likeStates[item.id] ? "text-green-500" : ""
+                    }`}
+                    onClick={() => handleLikeClick(item.id)}
+                  />
+                  <IoSearch className="w-5 h-5" />
+                </div>
+                <div className="text-center">
+                  <p className="text-lg">{item.common_name}</p>
+                  <h1 className="text-green-600 font-medium text-xl">
+                    ${item.price}.00
+                  </h1>
+                </div>
               </div>
-              <div className="text-center">
-                <p className="text-lg">{item.common_name}</p>
-                <h1 className="text-green-600 font-medium text-xl">
-                  ${item.price}.00
-                </h1>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <div className="flex justify-center mt-8 gap-3">
           {sale1 > 1 && (

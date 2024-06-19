@@ -8,7 +8,7 @@ import { LuMessageSquare } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 const AboutCard = () => {
-  const { about, setAbout } = useContext(AboutContext);
+  const { about } = useContext(AboutContext);
   const { product, setProduct } = useContext(ProductContext);
   const NotFound =
     "https://answers-afd.microsoft.com/static/images/image-not-found.jpg";
@@ -44,7 +44,7 @@ const AboutCard = () => {
       </div>
       {about && about.length > 0 ? (
         Data.map((item) => {
-          if (item.id == about[0]) {
+          if (item.id === about[0]) {
             return (
               <div key={item.id} className="flex items-center gap-16">
                 <div className="w-[40%]">
@@ -81,7 +81,7 @@ const AboutCard = () => {
                       The ceramic cylinder planters come with a wooden stand to
                       help elevate your plants off the ground. The ceramic
                       cylinder planters come with a wooden stand to help elevate
-                      your plants off the ground.{" "}
+                      your plants off the ground.
                     </p>
                     <h1 className="text-lg font-medium">Size:</h1>
                     <div className="flex gap-3 my-4">
@@ -89,10 +89,10 @@ const AboutCard = () => {
                         <p
                           key={size}
                           onClick={() => handleSizeChange(size)}
-                          className={`py-2 px-4 rounded-full cursor-pointer ${
+                          className={`py-2 px-4 rounded-full cursor-pointer transition-all ${
                             selectedSize === size
                               ? "bg-green-500 text-white border-green-500"
-                              : "bg-green-100 text-green-500 border-green-200"
+                              : "bg-green-100 text-green-500 border-green-200 hover:bg-green-500 hover:text-white hover:border-green-500"
                           }`}
                         >
                           {size}
@@ -101,21 +101,21 @@ const AboutCard = () => {
                     </div>
                     <div className="flex items-center gap-4 my-3">
                       <button
-                        className="py-1 px-3 text-lg rounded-full bg-green-600 text-white"
+                        className="py-1 px-3 text-lg rounded-full bg-green-600 text-white hover:bg-green-700"
                         onClick={handleDecrement}
                       >
                         -
                       </button>
                       <p>{quantity}</p>
                       <button
-                        className="py-1 px-3 rounded-full bg-green-600 text-white"
+                        className="py-1 px-3 rounded-full bg-green-600 text-white hover:bg-green-700"
                         onClick={handleIncrement}
                       >
                         +
                       </button>
                       <Link to="/shop/card">
                         <button
-                          className="px-5 py-2 bg-green-600 text-white rounded-lg"
+                          className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
                           onClick={() => {
                             if (!product.includes(item.id)) {
                               setProduct([...product, item.id]);
@@ -126,7 +126,7 @@ const AboutCard = () => {
                         </button>
                       </Link>
                       <button
-                        className="px-5 py-2 border-green-500 rounded-lg border"
+                        className="px-5 py-2 border-green-500 rounded-lg border hover:bg-green-500 hover:text-white"
                         onClick={() => {
                           if (!product.includes(item.id)) {
                             setProduct([...product, item.id]);
@@ -135,29 +135,29 @@ const AboutCard = () => {
                       >
                         Add to cart
                       </button>
-                      <p className="p-3 rounded-full border border-green-600">
-                        <CiHeart className="text-green-600" />
+                      <p className="p-3 rounded-full border border-green-600 hover:bg-green-600 hover:text-white">
+                        <CiHeart className="text-green-600 hover:text-white" />
                       </p>
                     </div>
                     <p>
-                      <span className=" opacity-60">SKU</span>: 1995751877966
+                      <span className="opacity-60">SKU</span>: 1995751877966
                     </p>
                     <p>
-                      <span className=" opacity-60">Categories</span>: Potter
+                      <span className="opacity-60">Categories</span>: Potter
                       Plants
                     </p>
                     <p>
-                      <span className=" opacity-60">Tags</span>: Home, Garden,
+                      <span className="opacity-60">Tags</span>: Home, Garden,
                       Plants
                     </p>
                     <div className="flex gap-4 items-center">
                       <p className="font-medium opacity-55">
                         Share this products:
                       </p>
-                      <FaFacebookF className="w-6" />
-                      <FaTwitter className="w-6" />
-                      <FaLinkedinIn className="w-6" />
-                      <LuMessageSquare className="w-6" />
+                      <FaFacebookF className="w-6 hover:text-blue-600" />
+                      <FaTwitter className="w-6 hover:text-blue-400" />
+                      <FaLinkedinIn className="w-6 hover:text-blue-700" />
+                      <LuMessageSquare className="w-6 hover:text-green-600" />
                     </div>
                   </div>
                 </div>
@@ -168,8 +168,8 @@ const AboutCard = () => {
         })
       ) : (
         <div className="flex flex-col items-center justify-center">
-          <img src={NotFound} alt="" className="w-96 h-60" />
-          <p className="text-gray-500">No found image </p>
+          <img src={NotFound} alt="Not Found" className="w-96 h-60" />
+          <p className="text-gray-500">No found image</p>
         </div>
       )}
     </div>

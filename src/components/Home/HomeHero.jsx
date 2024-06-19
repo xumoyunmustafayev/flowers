@@ -52,11 +52,11 @@ const HomeHero = () => {
                 </button>
               </div>
               <div className="flex items-end justify-center w-full lg:w-[40%] mt-8 lg:mt-0">
-                <img
+                {/* <img
                   src={Better}
                   alt="Decorative plant"
                   className="w-28 h-28 lg:w-auto lg:h-auto lg:absolute lg:bottom-8 lg:left-auto lg:ml-auto"
-                />
+                /> */}
                 <img
                   src={Better}
                   alt="Decorative plant"
